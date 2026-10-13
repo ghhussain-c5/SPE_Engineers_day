@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f3ec">
+  <meta name="description" content="Rebuild the distillation column in 20 seconds. An interactive challenge by SPE UOB for Bahraini Engineers Day.">
+  <title>Column Rebuild — SPE UOB</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="game.js" defer></script>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="masthead">
+      <div class="brand-lockup" aria-label="SPE University of Bahrain Student Chapter">
+        <div class="brand-mark"><span>SPE</span><small>UOB</small></div>
+        <div class="brand-copy"><strong>STUDENT CHAPTER</strong><span>UNIVERSITY OF BAHRAIN</span></div>
+      </div>
+      <div class="event-lockup"><span class="event-dot"></span><span>BAHRAINI ENGINEERS DAY</span><span class="event-arabic" lang="ar">يوم المهندس البحريني</span></div>
+      <button class="sound-btn" id="soundToggle" aria-label="Mute game audio" title="Toggle game audio">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path class="sound-waves" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+        <span id="soundLabel">SOUND ON</span>
+      </button>
+    </header>
+
+    <main>
+      <section class="page-intro" aria-label="Game introduction">
+        <div><div class="eyebrow"><span class="eyebrow-line"></span> FIELD CHALLENGE <span class="issue-number">NO. 001 / 2026</span></div>
+          <h1>THE COLUMN <em>REBUILD.</em></h1>
+          <p>One tower. Six components. <strong>20 seconds to save the shift.</strong></p>
+        </div>
+        <div class="intro-index" aria-hidden="true"><span>01</span><small>INTERACTIVE<br>ENGINEERING</small></div>
+      </section>
+
+      <div class="game-layout">
+        <section class="blueprint-panel" aria-label="Column assembly blueprint">
+          <div class="panel-header">
+            <div class="panel-heading"><span class="mini-square"></span><span>ASSEMBLY BLUEPRINT</span><span class="drawing-id">DWG–C101</span></div>
+            <span class="system-status" id="systemStatus"><i></i> SYSTEM INTACT</span>
+          </div>
+
+          <div class="metrics" aria-label="Game score and timer">
+            <div class="metric metric-timer"><span class="metric-label">TIME LEFT</span><div class="metric-data"><span id="timerDisplay" class="timer-value" aria-live="off">20.0</span><span class="metric-unit">SEC</span></div></div>
+            <div class="metric metric-progress"><span class="metric-label">COMPONENTS INSTALLED</span><div class="metric-data"><span id="progressDisplay" class="progress-value">0</span><span class="progress-separator">/</span><span class="progress-total">6</span><span class="metric-unit progress-unit">PARTS</span></div></div>
+            <div class="metric metric-record"><span class="metric-label">PERSONAL BEST</span><div class="metric-data"><span class="record-value" id="bestDisplay">—</span><span class="metric-unit">SEC</span></div></div>
+          </div>
+          <div class="timer-track"><div class="timer-fill" id="timerFill"></div></div>
+
+          <div class="board-stage" id="boardStage">
+            <svg class="blueprint" id="blueprint" viewBox="0 0 620 470" role="img" aria-label="Distillation process engineering drawing with six component locations. Select a component, then tap its matching outline on the drawing.">
+              <defs>
+                <pattern id="tinyGrid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#d5dedb" stroke-width="0.7"/></pattern>
+                <pattern id="bigGrid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="#bbc9c5" stroke-width="1"/></pattern>
+                <linearGradient id="shellFill" x1="0" x2="1" y1="0" y2="0"><stop stop-color="#91abb4"/><stop offset=".22" stop-color="#f3faf7"/><stop offset=".56" stop-color="#d9e8e8"/><stop offset=".87" stop-color="#a9c1c5"/><stop offset="1" stop-color="#839da5"/></linearGradient>
+                <linearGradient id="glassFill" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#eef8f9"/><stop offset="1" stop-color="#b7d8d9"/></linearGradient>
+                <linearGradient id="heatFill" x1="0" x2="1"><stop stop-color="#ffdc91"/><stop offset="1" stop-color="#e88359"/></linearGradient>
+                <linearGradient id="redFill" x1="0" x2="1"><stop stop-color="#db5660"/><stop offset="1" stop-color="#b12b39"/></linearGradient>
+                <filter id="partShadow" x="-25%" y="-25%" width="150%" height="150%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#385866" flood-opacity=".14"/></filter>
+
+                <!-- Self-contained engineering illustrations, shared by the board and part cards. -->
+                <symbol id="part-tower" viewBox="0 0 140 305">
+                  <g stroke-linejoin="round" filter="url(#partShadow)">
+                    <rect x="15" y="288" width="110" height="8" rx="3" fill="#5e7d85"/><path d="M34 286V298M106 286V298" stroke="#385967" stroke-width="6"/>
+                    <path d="M22 23Q22 5 70 5T118 23V275Q118 298 70 298T22 275Z" fill="url(#shellFill)" stroke="#365663" stroke-width="3"/>
+                    <ellipse cx="70" cy="23" rx="48" ry="17" fill="#e5f1f0" stroke="#365663" stroke-width="3"/>
+                    <path d="M36 38V265" stroke="#fff" stroke-opacity=".55" stroke-width="7" stroke-linecap="round"/>
+                    <path d="M22 62H118M22 246H118" stroke="#537782" stroke-width="3" opacity=".8"/>
+                    <path d="M70 5V-1M70 299V305" stroke="#365663" stroke-width="8"/>
+                    <rect x="42" y="52" width="56" height="22" rx="3" fill="#fdf9ee" stroke="#5d777f" stroke-width="1.4"/><text x="70" y="67" fill="#283c45" text-anchor="middle" font-size="13" font-weight="800" font-family="Arial,sans-serif">C–101</text>
+                    <path d="M118 108H133M118 192H132M22 166H7" stroke="#365663" stroke-width="7"/>
+                    <path d="M22 282H118" stroke="#47707c" stroke-width="2" opacity=".5"/>
+                  </g>
+                </symbol>
+                <symbol id="part-trays" viewBox="0 0 74 205">
+                  <g stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4V200M70 4V200" stroke="#aec5c8" stroke-opacity=".55" stroke-dasharray="4 7" stroke-width="2"/>
+                    <g fill="#e4ae66" stroke="#9f7048" stroke-width="2.5">
+                      <path d="M9 20H64V29H9Z"/><path d="M9 51H64V60H9Z"/><path d="M9 82H64V91H9Z"/><path d="M9 113H64V122H9Z"/><path d="M9 144H64V153H9Z"/><path d="M9 175H64V184H9Z"/>
+                    </g>
+                    <g stroke="#ad7350" stroke-width="3" fill="none"><path d="M14 20V41H21"/><path d="M60 51V72H53"/><path d="M14 82V103H21"/><path d="M60 113V134H53"/><path d="M14 144V165H21"/><path d="M60 175V196H53"/></g>
+                    <g fill="#2d8d9a" opacity=".9"><circle cx="33" cy="39" r="3.5"/><circle cx="46" cy="70" r="3.5"/><circle cx="30" cy="101" r="3.5"/><circle cx="45" cy="132" r="3.5"/><circle cx="30" cy="163" r="3.5"/><circle cx="44" cy="194" r="3.5"/></g>
+                  </g>
+                </symbol>
+                <symbol id="part-condenser" viewBox="0 0 145 77">
+                  <g stroke-linecap="round" stroke-linejoin="round" filter="url(#partShadow)">
+                    <path d="M7 39H2M138 39H144" stroke="#3b6470" stroke-width="9"/>
+                    <rect x="11" y="19" width="124" height="40" rx="19" fill="url(#glassFill)" stroke="#3b6570" stroke-width="3"/>
+                    <path d="M27 25V53M42 25V53M57 25V53M72 25V53M87 25V53M102 25V53M117 25V53" stroke="#5194a2" stroke-width="3" opacity=".9"/>
+                    <path d="M20 10H123M20 67H123" stroke="#5c8c92" stroke-width="4"/>
+                    <path d="M47 11V19M102 59V67" stroke="#315d6b" stroke-width="5"/>
+                    <rect x="50" y="0" width="46" height="14" rx="3" fill="#f9f7f0" stroke="#68868d"/><text x="73" y="10.5" text-anchor="middle" font-size="10" font-weight="800" font-family="Arial,sans-serif" fill="#2f535e">E–101</text>
+                  </g>
+                </symbol>
+                <symbol id="part-reflux" viewBox="0 0 127 70">
+                  <g stroke-linejoin="round" filter="url(#partShadow)">
+                    <path d="M26 56V65M99 56V65" stroke="#587580" stroke-width="7"/>
+                    <path d="M10 33H1M125 33H115" stroke="#416a76" stroke-width="8"/>
+                    <rect x="10" y="13" width="107" height="42" rx="20" fill="#edf6f3" stroke="#385b68" stroke-width="3"/>
+                    <path d="M13 39Q21 34 33 39T58 39T84 39T114 39V40Q111 53 96 53H30Q16 53 13 40Z" fill="#7bbbc6" opacity=".85"/>
+                    <path d="M31 18H87" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".85"/>
+                    <rect x="43" y="1" width="43" height="17" rx="3" fill="#fdf9ee" stroke="#68818b"/><text x="64" y="13" font-size="10" font-weight="800" font-family="Arial,sans-serif" text-anchor="middle" fill="#33525d">V–101</text>
+                  </g>
+                </symbol>
+                <symbol id="part-reboiler" viewBox="0 0 132 86">
+                  <g stroke-linecap="round" stroke-linejoin="round" filter="url(#partShadow)">
+                    <path d="M16 45H2M129 45H119M48 10V20M92 67V79" stroke="#647e82" stroke-width="8"/>
+                    <rect x="15" y="19" width="107" height="50" rx="24" fill="url(#shellFill)" stroke="#425f6d" stroke-width="3"/>
+                    <path d="M30 45C38 22 46 66 54 45S70 22 78 45S94 66 103 43" fill="none" stroke="#d56e41" stroke-width="5"/>
+                    <path d="M32 26H103" stroke="#fff" stroke-opacity=".7" stroke-width="4"/>
+                    <path d="M45 70V78M90 70V78" stroke="#617b85" stroke-width="5"/>
+                    <rect x="44" y="1" width="46" height="17" rx="3" fill="#fdf9ee" stroke="#68818b"/><text x="67" y="13" font-size="10" font-weight="800" font-family="Arial,sans-serif" text-anchor="middle" fill="#33525d">E–102</text>
+                  </g>
+                </symbol>
+                <symbol id="part-feed" viewBox="0 0 154 58">
+                  <g stroke-linecap="round" stroke-linejoin="round" filter="url(#partShadow)">
+                    <path d="M2 32H152" stroke="#587b81" stroke-width="11"/><path d="M2 30H152" stroke="#a4d3cb" stroke-width="5"/>
+                    <path d="M45 14L61 32L45 50ZM77 14L61 32L77 50Z" fill="url(#redFill)" stroke="#923843" stroke-width="2"/>
+                    <path d="M61 15V3H89" stroke="#4e6871" stroke-width="4"/><circle cx="94" cy="3" r="6" fill="#d8ad62" stroke="#8c6c47" stroke-width="2"/>
+                    <path d="M105 22L124 32L105 42" fill="#cf6b44" stroke="#cf6b44" stroke-width="3"/>
+                    <rect x="2" y="2" width="38" height="15" rx="3" fill="#fdf9ee" stroke="#68818b"/><text x="21" y="13" text-anchor="middle" font-size="10" font-weight="800" font-family="Arial,sans-serif" fill="#365662">FEED</text>
+                  </g>
+                </symbol>
+              </defs>
+
+              <rect width="620" height="470" fill="#f1f6f3"/>
+              <rect width="620" height="470" fill="url(#tinyGrid)" opacity=".75"/>
+              <rect width="620" height="470" fill="url(#bigGrid)" opacity=".75"/>
+              <g class="blueprint-decor" font-family="Arial,sans-serif" fill="#77938d" font-size="10" letter-spacing="1">
+                <text x="24" y="28">P&amp;ID / TRAINING SIMULATION</text><text x="596" y="28" text-anchor="end">SCALE N.T.S.</text>
+                <text x="24" y="452">REF: SPE–UOB–C101</text><text x="596" y="452" text-anchor="end">REV 01</text>
+                <path d="M22 41H598M22 430H598" stroke="#b5cac4" stroke-width="1.4"/>
+              </g>
+
+              <!-- Fixed piping joins the six movable mechanical components. -->
+              <g class="process-piping" fill="none" stroke="#8ba9aa" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+                <path d="M312 107V61H421V97"/>
+                <path d="M548 113H571V207H543"/>
+                <path d="M423 210H385V178H365"/>
+                <path d="M223 225H263"/>
+                <path d="M312 405V422H220V382"/>
+                <path d="M86 384H57V415"/>
+                <path d="M314 405V422H578"/>
+              </g>
+              <g class="flow-markers" stroke="#5d9391" stroke-width="2" fill="none" opacity=".7">
+                <path d="m386 55 9 6-9 6"/><path d="m558 184 7 9-7 9"/><path d="m171 216 9 6-9 6"/><path d="m256 416 9 6-9 6"/>
+              </g>
+
+              <!-- The six independently interactive positions. -->
+              <g class="target is-placed" data-part="tower" role="button" tabindex="0" aria-label="Position for column shell">
+                <rect class="target-outline" x="244" y="94" width="136" height="311" rx="21"/>
+                <svg class="target-visual" x="244" y="94" width="136" height="311" viewBox="0 0 140 305"><use href="#part-tower"/></svg>
+              </g>
+              <g class="target is-placed" data-part="trays" role="button" tabindex="0" aria-label="Position for distillation trays">
+                <rect class="target-outline" x="279" y="160" width="69" height="190" rx="8"/>
+                <svg class="target-visual" x="279" y="160" width="69" height="190" viewBox="0 0 74 205"><use href="#part-trays"/></svg>
+              </g>
+              <g class="target is-placed" data-part="condenser" role="button" tabindex="0" aria-label="Position for overhead condenser">
+                <rect class="target-outline" x="400" y="67" width="155" height="85" rx="20"/>
+                <svg class="target-visual" x="400" y="67" width="155" height="85" viewBox="0 0 145 77"><use href="#part-condenser"/></svg>
+              </g>
+              <g class="target is-placed" data-part="reflux" role="button" tabindex="0" aria-label="Position for reflux drum">
+                <rect class="target-outline" x="421" y="169" width="128" height="78" rx="21"/>
+                <svg class="target-visual" x="421" y="169" width="128" height="78" viewBox="0 0 127 70"><use href="#part-reflux"/></svg>
+              </g>
+              <g class="target is-placed" data-part="reboiler" role="button" tabindex="0" aria-label="Position for reboiler">
+                <rect class="target-outline" x="86" y="332" width="140" height="91" rx="20"/>
+                <svg class="target-visual" x="86" y="332" width="140" height="91" viewBox="0 0 132 86"><use href="#part-reboiler"/></svg>
+              </g>
+              <g class="target is-placed" data-part="feed" role="button" tabindex="0" aria-label="Position for feed inlet">
+                <rect class="target-outline" x="60" y="193" width="165" height="65" rx="16"/>
+                <svg class="target-visual" x="60" y="193" width="165" height="65" viewBox="0 0 154 58"><use href="#part-feed"/></svg>
+              </g>
+              <g class="equipment-captions" font-family="Arial,sans-serif" font-size="11" font-weight="700" letter-spacing="1.4" fill="#607d80">
+                <text x="312" y="88" text-anchor="middle">FRACTIONATOR</text>
+                <text x="480" y="162" text-anchor="middle">CONDENSER</text>
+                <text x="488" y="263" text-anchor="middle">REFLUX DRUM</text>
+                <text x="158" y="327" text-anchor="middle">REBOILER</text>
+                <text x="130" y="184" text-anchor="middle">FEED INLET</text>
+                <text x="383" y="353">TRAYS ↖</text>
+              </g>
+              <g fill="#415e6b"><circle cx="312" cy="419" r="3"/><circle cx="578" cy="422" r="4"/></g>
+              <g font-family="Arial,sans-serif" font-size="10" fill="#52736f" font-weight="700"><text x="526" y="413">BOTTOMS</text><text x="575" y="94" text-anchor="end">OVERHEAD</text></g>
+            </svg>
+            <div class="board-toast" id="boardToast" role="status" aria-live="polite"></div>
+            <div class="board-overlay" id="boardOverlay">
+              <div class="overlay-card" id="overlayCard">
+                <div class="overlay-kicker"><span class="signal-dot"></span> THE ENGINEERING CHALLENGE</div>
+                <div class="overlay-title">CAN YOU PUT IT<br><em>BACK TOGETHER?</em></div>
+                <p>Study the complete column. It will split into six parts—reassemble it before the clock runs out.</p>
+                <button id="primaryAction" class="primary-action" type="button">START THE REBUILD <span aria-hidden="true">↗</span></button>
+                <div class="overlay-footnote">6 PARTS <span>✦</span> 20 SECOND SHIFT <span>✦</span> NO ENGINEERING DEGREE REQUIRED</div>
+              </div>
+            </div>
+            <div id="confettiLayer" class="confetti-layer" aria-hidden="true"></div>
+          </div>
+          <div class="blueprint-footer"><span><i class="legend-icon legend-outline"></i> EMPTY POSITION</span><span><i class="legend-icon legend-installed"></i> INSTALLED</span><span class="blueprint-footer-right">DESIGNED FOR TOUCH + MOUSE</span></div>
+        </section>
+
+        <aside class="workbench" aria-label="Available components">
+          <div class="workbench-header"><div class="workbench-eyebrow">YOUR EQUIPMENT</div><h2>THE WORKBENCH<span class="workbench-period">.</span></h2><p id="workbenchInstruction">Get ready. The complete column will come apart when you start.</p></div>
+          <div class="component-grid" id="componentGrid">
+            <button class="component-card" type="button" data-part="tower" aria-label="Select column shell"><span class="component-number">01</span><svg viewBox="0 0 140 305" aria-hidden="true"><use href="#part-tower"/></svg><span class="component-info"><strong>Column shell</strong><small>C–101</small></span><span class="card-check" aria-hidden="true">✓</span></button>
+            <button class="component-card" type="button" data-part="trays" aria-label="Select distillation trays"><span class="component-number">02</span><svg viewBox="0 0 74 205" aria-hidden="true"><use href="#part-trays"/></svg><span class="component-info"><strong>Trays</strong><small>INTERNALS</small></span><span class="card-check" aria-hidden="true">✓</span></button>
+            <button class="component-card" type="button" data-part="condenser" aria-label="Select overhead condenser"><span class="component-number">03</span><svg viewBox="0 0 145 77" aria-hidden="true"><use href="#part-condenser"/></svg><span class="component-info"><strong>Condenser</strong><small>E–101</small></span><span class="card-check" aria-hidden="true">✓</span></button>
+            <button class="component-card" type="button" data-part="reflux" aria-label="Select reflux drum"><span class="component-number">04</span><svg viewBox="0 0 127 70" aria-hidden="true"><use href="#part-reflux"/></svg><span class="component-info"><strong>Reflux drum</strong><small>V–101</small></span><span class="card-check" aria-hidden="true">✓</span></button>
+            <button class="component-card" type="button" data-part="reboiler" aria-label="Select reboiler"><span class="component-number">05</span><svg viewBox="0 0 132 86" aria-hidden="true"><use href="#part-reboiler"/></svg><span class="component-info"><strong>Reboiler</strong><small>E–102</small></span><span class="card-check" aria-hidden="true">✓</span></button>
+            <button class="component-card" type="button" data-part="feed" aria-label="Select feed inlet"><span class="component-number">06</span><svg viewBox="0 0 154 58" aria-hidden="true"><use href="#part-feed"/></svg><span class="component-info"><strong>Feed inlet</strong><small>F–101</small></span><span class="card-check" aria-hidden="true">✓</span></button>
+          </div>
+          <div class="hint-box"><span class="hint-icon" aria-hidden="true">↗</span><div><strong>HOW TO BUILD</strong><p>Tap a part, then tap its matching position. Or drag and drop it straight onto the drawing.</p></div></div>
+          <div class="bench-bottom"><div><span class="small-label">SHIFT PROGRESS</span><div class="pip-track" id="pipTrack"><i></i><i></i><i></i><i></i><i></i><i></i></div></div><button class="reset-button" id="resetButton" type="button" disabled>RESTART ↻</button></div>
+        </aside>
+      </div>
+      <div class="page-bottom"><span>BUILT FOR THE CURIOUS. POWERED BY ENGINEERING.</span><span>SPE UOB CHAPTER · BAHRAIN</span></div>
+    </main>
+  </div>
+</body>
+</html>
